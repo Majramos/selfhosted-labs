@@ -1,0 +1,12 @@
+name: wealthfolio
+services:
+  wealthfolio:
+    image: docker.io/afadil/wealthfolio:latest
+    container_name: wealthfolio
+    restart: unless-stopped
+    volumes:
+      - ./data:/data:Z
+    env_file:
+      - .env
+    ports:
+      - 7490:8088
