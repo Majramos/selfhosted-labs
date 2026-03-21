@@ -142,3 +142,8 @@ containers/actualbudget/data/*
 # tandoor
 containers/tandoor/data/*
 !containers/tandoor/data/mediafiles/.gitkeep
+
+# wealthfolio
+containers/wealthfolio/data/*
+!containers/wealthfolio/data/.gitkeep
+
