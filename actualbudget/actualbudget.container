@@ -1,0 +1,28 @@
+[Unit]
+Description=Actual Budget Server
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=docker.io/actualbudget/actual-server:latest
+ContainerName=actualbudget
+
+PublishPort=5006:5006
+
+Environment=ACTUAL_ALLOWED_LOGIN_METHODS=password
+Environment=ACTUAL_LOGIN_METHOD=password
+Environment=ACTUAL_PORT=5006
+
+Volume=%h/containers/actualbudget/data:/data:Z
+
+HealthCmd=node src/scripts/health-check.js
+HealthInterval=60s
+HealthTimeout=10s
+HealthRetries=3
+HealthStartPeriod=20s
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
