@@ -103,47 +103,46 @@ ENV/
 # jupyter trash
 .Trash-999/*
 
+# actualbudget
+actualbudget/data/*
+!actualbudget/data/.gitkeep
+
 # searxng
 searxng-docker.service
 srv
-containers/searxng/data/uwsgi.ini
-containers/searxng/data/settings.yml
+searxng/data/uwsgi.ini
+searxng/data/settings.yml
 
 # stirling-pdf
-containers/stirling-pdf/data/extraConfigs/*
-containers/stirling-pdf/data/trainingData/*
-!containers/stirling-pdf/data/extraConfigs/.gitkeep
-!containers/stirling-pdf/data/trainingData/.gitkeep
+stirling-pdf/data/extraConfigs/*
+stirling-pdf/data/trainingData/*
+!stirling-pdf/data/extraConfigs/.gitkeep
+!stirling-pdf/data/trainingData/.gitkeep
 
 # tasks.md
-containers/tasks.md/data/config/*
-containers/tasks.md/data/tasks/*
-!containers/tasks.md/data/config/.gitkeep
-!containers/tasks.md/data/tasks/.gitkeep
+tasks.md/data/config/*
+tasks.md/data/tasks/*
+!tasks.md/data/config/.gitkeep
+!tasks.md/data/tasks/.gitkeep
 
 # linkwarden
-containers/linkwarden/data/lkdata/*
-containers/linkwarden/data/pgdata/*
-!containers/linkwarden/data/lkdata/.gitkeep
-!containers/linkwarden/data/pgdata/.gitkeep
+linkwarden/data/lkdata/*
+linkwarden/data/pgdata/*
+!linkwarden/data/lkdata/.gitkeep
+!linkwarden/data/pgdata/.gitkeep
 
 # portainer
-containers/portainer/data/*
-!containers/portainer/data/.gitkeep
+portainer/data/*
+!portainer/data/.gitkeep
 
 # uptime
-containers/uptime/data/*
-!containers/uptime/data/.gitkeep
-
-# actualbudget
-containers/actualbudget/data/*
-!containers/actualbudget/data/.gitkeep
+uptime/data/*
+!uptime/data/.gitkeep
 
 # tandoor
-containers/tandoor/data/*
-!containers/tandoor/data/mediafiles/.gitkeep
+tandoor/data/*
+!tandoor/data/mediafiles/.gitkeep
 
 # wealthfolio
-containers/wealthfolio/data/*
-!containers/wealthfolio/data/.gitkeep
-
+wealthfolio/data/*
+!wealthfolio/data/.gitkeep
