@@ -10,3 +10,7 @@ local.lab:80 {
     }
 
 }
+
+:80 {
+	respond /healthz 200
+}
