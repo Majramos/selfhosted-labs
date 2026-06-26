@@ -1,7 +1,7 @@
 name: wealthfolio
 services:
   wealthfolio:
-    image: docker.io/afadil/wealthfolio:latest
+    image: docker.io/afadil/wealthfolio:3.2.1
     container_name: wealthfolio
     restart: unless-stopped
     volumes:
