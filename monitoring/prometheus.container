@@ -1,0 +1,25 @@
+[Unit]
+Description=Prometheus
+After=network-online.target node-exporter.service
+
+StartLimitIntervalSec=120
+StartLimitBurst=5
+
+[Container]
+Image=docker.io/prom/prometheus:v3
+ContainerName=prometheus
+
+Network=monitoring.network
+# PublishPort=9090:9090
+
+Volume=%h/containers/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro,Z
+Volume=%h/volumes/prometheus:/prometheus:rw,Z
+
+[Service]
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=900
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target default.target

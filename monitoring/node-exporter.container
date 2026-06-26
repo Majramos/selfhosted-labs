@@ -1,0 +1,34 @@
+[Unit]
+Description=Prometheus Node Exporter
+After=network-online.target
+
+StartLimitIntervalSec=120
+StartLimitBurst=5
+
+[Container]
+Image=quay.io/prometheus/node-exporter:v1.11.1
+ContainerName=node-exporter
+
+Network=host # Because of this, port publishing becomes redundant and can actually cause Podman to throw an error
+# PublishPort=9100:9100
+
+Volume=/proc:/host/proc:ro
+Volume=/sys:/host/sys:ro
+Volume=/:/rootfs:ro
+
+Exec=--path.procfs=/host/proc \
+     --path.sysfs=/host/sys \
+     --path.rootfs=/rootfs \
+     --collector.hwmon \
+     --collector.netclass.ignored-devices="^(veth.*|docker.*|br-.*|cni.*)$$" \
+     --collector.netdev.device-exclude="^(veth.*|docker.*|br-.*|cni.*)$$" \
+     --collector.filesystem.mount-points-exclude="^/(sys|proc|dev|run|host|etc|var/lib/containers/.+)($$|/)"
+
+[Service]
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=900
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target default.target

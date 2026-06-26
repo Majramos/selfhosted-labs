@@ -1,0 +1,27 @@
+[Unit]
+Description=Grafana
+After=prometheus.service
+
+StartLimitIntervalSec=120
+StartLimitBurst=5
+
+[Container]
+Image=docker.io/grafana/grafana:latest
+ContainerName=grafana
+
+Network=monitoring.network
+Network=reverseproxy.network
+PublishPort=3000:3000
+
+EnvironmentFile=%h/containers/grafana/.env
+
+Volume=%h/volumes/grafana:/var/lib/grafana:rw,Z
+
+[Service]
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=900
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target default.target
