@@ -1,0 +1,16 @@
+[Unit]
+Description=Maybe Finance Worker
+After=redis.service db.service
+Requires=redis.service db.service
+
+[Container]
+Image=ghcr.io/maybe-finance/maybe:latest
+Network=maybe
+Exec=bundle exec sidekiq
+EnvironmentFile=maybe.env
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

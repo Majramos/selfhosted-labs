@@ -1,0 +1,21 @@
+[Unit]
+Description=Redis
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=redis:latest
+Network=maybe
+Volume=redis-data:/data
+PublishPort=6379:6379
+
+HealthCmd=redis-cli ping
+HealthInterval=5s
+HealthTimeout=5s
+HealthRetries=5
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

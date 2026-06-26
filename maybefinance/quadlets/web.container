@@ -1,0 +1,17 @@
+[Unit]
+Description=Maybe Finance Web
+After=db.service redis.service
+Requires=db.service redis.service
+
+[Container]
+Image=ghcr.io/maybe-finance/maybe:latest
+Network=maybe
+Volume=app-storage:/rails/storage
+PublishPort=3000:3000
+EnvironmentFile=maybe.env
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,21 @@
+[Unit]
+Description=Postgres DB
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=postgres:16
+Network=maybe
+Volume=postgres-data:/var/lib/postgresql/data
+EnvironmentFile=maybe.env
+
+HealthCmd=pg_isready -U $POSTGRES_USER -d $POSTGRES_DB
+HealthInterval=5s
+HealthTimeout=5s
+HealthRetries=5
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
