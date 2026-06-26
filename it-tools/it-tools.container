@@ -1,0 +1,14 @@
+[Unit]
+Description=IT Tools container
+
+[Container]
+Image=ghcr.io/corentinth/it-tools:latest
+ContainerName=it-tools
+PublishPort=1500:80
+Network=reverse_proxy
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
