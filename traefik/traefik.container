@@ -1,0 +1,39 @@
+[Unit]
+Description=Traefik Reverse Proxy
+After=network-online.target
+Requires=reverse-proxy.network
+
+[Container]
+Image=docker.io/traefik:v3.2
+Name=traefik-reverse-proxy
+
+Restart=unless-stopped
+
+# Ports
+PublishPort=80:80
+
+# Command arguments
+Exec=--providers.docker=true
+Exec=--providers.docker.exposedByDefault=false
+Exec=--providers.docker.network=reverse_proxy
+Exec=--entryPoints.web.address=:80
+Exec=--api.dashboard=true
+
+# Volumes (Podman socket instead of Docker)
+Volume=/run/podman/podman.sock:/var/run/docker.sock:ro
+
+# Network
+Network=reverse-proxy.network
+
+# Labels
+Label=traefik.enable=true
+Label=traefik.http.routers.dashboard.rule=Host(`local.lab`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+Label=traefik.http.routers.dashboard.entrypoints=web
+Label=traefik.http.routers.dashboard.service=api@internal
+Label=traefik.http.middlewares.dashboard-strip-slash.redirectregex.regex=(^.*\/dashboard$$)
+Label=traefik.http.middlewares.dashboard-strip-slash.redirectregex.replacement=$$1/
+Label=traefik.http.middlewares.dashboard-strip-slash.redirectregex.permanent=false
+Label=traefik.http.routers.dashboard.middlewares=dashboard-strip-slash
+
+[Install]
+WantedBy=default.target
