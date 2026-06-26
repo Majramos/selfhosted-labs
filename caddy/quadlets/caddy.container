@@ -1,0 +1,36 @@
+[Unit]
+Description=Caddy reverse proxy
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=docker.io/library/caddy:alpine
+ContainerName=reverse_proxy_caddy
+
+# Ports
+PublishPort=8080:80
+# PublishPort=443:443
+
+# Network
+Network=reverse_proxy_caddy.network
+
+# Volumes
+Volume=/absolute/path/to/Caddyfile:/etc/caddy/Caddyfile:Z
+Volume=caddy_data.volume:/data
+Volume=caddy_config.volume:/config
+
+HealthCmd=wget --no-verbose --tries=1 --spider http://127.0.0.1/healthz || exit 1
+HealthInterval=30s
+HealthTimeout=5s
+HealthRetries=3
+HealthStartPeriod=10s
+
+Notify=healthy
+
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,5 @@
+[Unit]
+Description=Podman network for Caddy reverse proxy
+
+[Network]
+NetworkName=reverse_proxy_caddy
