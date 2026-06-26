@@ -1,0 +1,25 @@
+[Unit]
+Description=Ghostfolio Redis
+
+[Container]
+Image=docker.io/library/redis:alpine
+ContainerName=gf-redis
+EnvironmentFile=%h/.config/ghostfolio/.env
+
+User=999:1000
+
+DropCapability=ALL
+NoNewPrivileges=true
+
+Exec=/bin/sh -c 'redis-server --requirepass "$REDIS_PASSWORD"'
+
+HealthCmd=/bin/sh -c 'redis-cli --pass "$REDIS_PASSWORD" ping | grep PONG'
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,28 @@
+[Unit]
+Description=Ghostfolio Postgres
+
+[Container]
+Image=docker.io/library/postgres:15-alpine
+ContainerName=gf-postgres
+EnvironmentFile=%h/.config/ghostfolio/.env
+
+Volume=%h/containers/ghostfolio/data:/var/lib/postgresql/data:Z
+
+DropCapability=ALL
+AddCapability=CHOWN
+AddCapability=DAC_READ_SEARCH
+AddCapability=FOWNER
+AddCapability=SETGID
+AddCapability=SETUID
+NoNewPrivileges=true
+
+HealthCmd=/bin/sh -c 'pg_isready -d "$POSTGRES_DB" -U "$POSTGRES_USER"'
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

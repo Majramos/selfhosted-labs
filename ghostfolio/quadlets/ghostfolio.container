@@ -1,0 +1,28 @@
+[Unit]
+Description=Ghostfolio App
+Requires=postgres.service redis.service
+After=postgres.service redis.service
+
+[Container]
+Image=docker.io/ghostfolio/ghostfolio:latest
+ContainerName=ghostfolio
+EnvironmentFile=%h/.config/ghostfolio/.env
+
+PublishPort=3333:3333
+
+DropCapability=ALL
+NoNewPrivileges=true
+
+HealthCmd=/bin/sh -c "curl -f http://localhost:3333/api/v1/health"
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+
+# Equivalent to init: true
+Init=true
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
