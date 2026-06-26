@@ -1,0 +1,14 @@
+name: it-tools
+services:
+  it-tools:
+    image: ghcr.io/corentinth/it-tools:latest
+    container_name: it-tools
+    ports:
+      - "1500:80"
+    restart: unless-stopped
+    networks:
+      - reverse_proxy
+
+networks:
+  reverse_proxy:
+    external: true
