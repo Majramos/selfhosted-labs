@@ -1,0 +1,22 @@
+[Unit]
+Description=Linkwarden App
+After=linkwarden-postgres.service
+Requires=linkwarden-postgres.service
+
+[Container]
+Image=ghcr.io/linkwarden/linkwarden:latest
+ContainerName=linkwarden
+EnvFile=%h/path/to/your/.env
+Environment=DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@linkwarden-postgres:5432/${POSTGRES_DB}
+Environment=NEXT_PUBLIC_DISABLE_REGISTRATION=true
+Environment=NEXT_PUBLIC_CREDENTIALS_ENABLED=true
+Environment=DISABLE_NEW_SSO_USERS=true
+PublishPort=${LINKWARDEN_HTTP_PORT}:3000
+Volume=%h/path/to/linkwarden/data/lkdata:/data/data:Z
+Network=linkwarden_network
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

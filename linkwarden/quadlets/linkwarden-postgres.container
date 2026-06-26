@@ -1,0 +1,15 @@
+[Unit]
+Description=Linkwarden Postgres
+
+[Container]
+Image=docker.io/postgres:16-alpine
+ContainerName=linkwarden-postgres
+EnvFile=%h/path/to/your/.env
+Volume=%h/path/to/linkwarden/data/pgdata:/var/lib/postgresql/data:Z
+Network=linkwarden_network
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
