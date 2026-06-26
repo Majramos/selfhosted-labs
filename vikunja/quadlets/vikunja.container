@@ -1,0 +1,27 @@
+[Unit]
+Description=Vikunja App
+After=vikunja-db.service
+Requires=vikunja-db.service
+
+[Container]
+Image=docker.io/vikunja/vikunja
+Name=vikunja
+Network=vikunja
+
+Environment=VIKUNJA_SERVICE_PUBLICURL=http://localhost:1004
+Environment=VIKUNJA_DATABASE_HOST=vikunja-db
+Environment=VIKUNJA_DATABASE_TYPE=postgres
+Environment=VIKUNJA_DATABASE_USER=vikunja
+Environment=VIKUNJA_DATABASE_DATABASE=vikunja
+Environment=VIKUNJA_DATABASE_PASSWORD=${VIKUNJA_DATABASE_PASSWORD}
+Environment=VIKUNJA_SERVICE_JWTSECRET=${VIKUNJA_SERVICE_JWTSECRET}
+
+PublishPort=1004:3456
+
+Volume=./data/files:/app/vikunja/files:Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
