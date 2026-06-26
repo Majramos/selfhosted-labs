@@ -5,7 +5,7 @@
 - Containers:
     - Portainer:
         icon: portainer.png
-        href: {{HOMEPAGE_VAR_LAB_URL}}/portainer/
+        href: "{{HOMEPAGE_VAR_LAB_URL}}/portainer/"
         server: my-docker
         container: portainer
     - Caddy:
@@ -17,7 +17,7 @@
             # url: {{HOMEPAGE_VAR_LAB_URL}}:2020/
     - IT-Tools:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/it-tools.png
-        href: {{HOMEPAGE_VAR_LAB_URL}}/it-tools/
+        href: "{{HOMEPAGE_VAR_LAB_URL}}/it-tools/"
         server: my-docker
         container: it-tools
     - Tasks.md:
@@ -30,7 +30,6 @@
         href: {{HOMEPAGE_VAR_LAB_URL}}:1005/
         server: my-docker
         container: stirling-pdf
-
 
 - Utilities:
     - Pi-hole:
